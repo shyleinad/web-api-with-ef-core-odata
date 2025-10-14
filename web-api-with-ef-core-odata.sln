@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36429.23 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web-api-with-ef-core-odata", "web-api-with-ef-core-odata.csproj", "{819B58AD-C15E-43BC-AF49-EE1C41D3BB9D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{819B58AD-C15E-43BC-AF49-EE1C41D3BB9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{819B58AD-C15E-43BC-AF49-EE1C41D3BB9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{819B58AD-C15E-43BC-AF49-EE1C41D3BB9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{819B58AD-C15E-43BC-AF49-EE1C41D3BB9D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3F4A6863-3FCE-4CB0-A655-B877626A2E81}
+	EndGlobalSection
+EndGlobal
