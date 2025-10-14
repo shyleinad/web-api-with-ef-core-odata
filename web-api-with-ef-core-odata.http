@@ -1,6 +1,6 @@
 @web_api_with_ef_core_odata_HostAddress = http://localhost:5154
 
-GET {{web_api_with_ef_core_odata_HostAddress}}/weatherforecast/
-Accept: application/json
+# GET {{web_api_with_ef_core_odata_HostAddress}}/weatherforecast/
+# Accept: application/json
 
 ###
