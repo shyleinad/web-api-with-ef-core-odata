@@ -3,12 +3,12 @@ using web_api_with_ef_core_odata.Models;
 
 namespace web_api_with_ef_core_odata.Data;
 
-public class ProductContext : DbContext
+public class ProjectDbContext : DbContext
 {
     public DbSet<Product> Products { get; set; }
     public DbSet<Category> Categories { get; set; }
 
-    public ProductContext(DbContextOptions<ProductContext> options) : base(options)
+    public ProjectDbContext(DbContextOptions<ProjectDbContext> options) : base(options)
     {
     }
 

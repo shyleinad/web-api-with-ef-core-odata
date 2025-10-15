@@ -30,7 +30,7 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 // Config db
-builder.Services.AddDbContext<ProductContext>(opt => opt.UseInMemoryDatabase("ProductsDb"));
+builder.Services.AddDbContext<ProjectDbContext>(opt => opt.UseInMemoryDatabase("ProductsDb"));
 
 var app = builder.Build();
 
@@ -53,7 +53,7 @@ app.MapControllers();
 // Initialize the database with seed data
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<ProductContext>();
+    var db = scope.ServiceProvider.GetRequiredService<ProjectDbContext>();
     db.Database.EnsureCreated();
 }
 

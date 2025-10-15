@@ -9,9 +9,9 @@ namespace web_api_with_ef_core_odata.Controllers;
 
 public class ProductsController : ODataController
 {
-    private readonly ProductContext context;
+    private readonly ProjectDbContext context;
 
-    public ProductsController(ProductContext context)
+    public ProductsController(ProjectDbContext context)
     {
         this.context = context;
     }
