@@ -1,15 +1,30 @@
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OData.ModelBuilder;
 using System;
 using web_api_with_ef_core_odata.Data;
+using web_api_with_ef_core_odata.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// OData model
+var modelBuilder = new ODataConventionModelBuilder();
+modelBuilder.EntitySet<Product>("Products");
 
 // Add services to the container.
 
 // Add OData services
 builder.Services.AddControllers()
-    .AddOData(opt => opt.Select().Filter().OrderBy().SetMaxTop(100).Count().SkipToken().Expand());
+    .AddOData(opt => opt
+    .AddRouteComponents("odata", modelBuilder.GetEdmModel()).
+    Select().
+    Filter().
+    OrderBy().
+    SetMaxTop(100).
+    Count().
+    SkipToken().
+    Expand());
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

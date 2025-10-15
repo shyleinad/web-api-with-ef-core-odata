@@ -17,8 +17,7 @@ public class ProductsController : ODataController
     }
 
     [EnableQuery]
-    [HttpGet]
-    public IActionResult GetProducts()
+    public IActionResult Get()
     {
         var products = context.Products.ToList();
 
@@ -26,10 +25,9 @@ public class ProductsController : ODataController
     }
 
     [EnableQuery]
-    [HttpGet("{key}")]
-    public IActionResult GetProduct(int id)
+    public IActionResult Get([FromRoute] int key)
     {
-        var product = context.Products.FirstOrDefault(p => p.Id == id);
+        var product = context.Products.FirstOrDefault(p => p.Id == key);
 
         if (product == null)
         {
@@ -39,8 +37,7 @@ public class ProductsController : ODataController
         return Ok(product);
     }
 
-    [HttpPost]
-    public IActionResult CreateProduct([FromBody] Product product)
+    public IActionResult Post([FromBody] Product product)
     {
         context.Products.Add(product);
 
@@ -49,8 +46,7 @@ public class ProductsController : ODataController
         return Created(product);
     }
 
-    [HttpPut("{key}")]
-    public IActionResult UpdateProduct([FromBody] Product updateData) 
+    public IActionResult Put([FromRoute] int key, [FromBody] Product updateData) 
     {
         var product = context.Products.FirstOrDefault(p => p.Id == updateData.Id);
 
@@ -68,10 +64,9 @@ public class ProductsController : ODataController
         return Updated(updateData);
     }
 
-    [HttpDelete("{key}")]
-    public IActionResult DeleteProduct(int id)
+    public IActionResult Delete([FromRoute] int key)
     {
-        var product = context.Products.FirstOrDefault(p => p.Id == id);
+        var product = context.Products.FirstOrDefault(p => p.Id == key);
 
         if (product == null)
         {
