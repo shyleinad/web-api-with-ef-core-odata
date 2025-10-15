@@ -1,6 +1,74 @@
-@web_api_with_ef_core_odata_HostAddress = http://localhost:5154
+@web_api_with_ef_core_odata_HostAddress = http://localhost:5154/odata
 
 # GET {{web_api_with_ef_core_odata_HostAddress}}/weatherforecast/
 # Accept: application/json
+
+###
+
+// Get products list
+GET {{web_api_with_ef_core_odata_HostAddress}}/Products
+Accept: application/json
+
+###
+
+// Get product by ID
+GET {{web_api_with_ef_core_odata_HostAddress}}/Products(1)
+Accept: application/json
+
+###
+
+// Create a new product
+POST {{web_api_with_ef_core_odata_HostAddress}}/Products
+Content-Type: application/json
+Accept: application/json
+
+{
+  "Name": "OData test product",
+  "CategoryId": 1,
+  "Price": 2999.99
+}
+
+###
+
+// Update an existing product
+PUT {{web_api_with_ef_core_odata_HostAddress}}/Products(1)
+Content-Type: application/json
+Accept: application/json
+
+{
+  "Id": 1,
+  "Name": "Modified product",
+  "CategoryId": 2,
+  "Price": 3999.99
+}
+
+###
+
+// Delete a product
+DELETE {{web_api_with_ef_core_odata_HostAddress}}/Products(5)
+
+###
+
+// Filter products with price greater than 1000
+GET {{web_api_with_ef_core_odata_HostAddress}}/Products?$filter=Price%20gt%201000
+Accept: application/json
+
+###
+
+// Order products by price descending
+GET {{web_api_with_ef_core_odata_HostAddress}}/Products?$orderby=Price%20desc
+Accept: application/json
+
+###
+
+// Select only Name and Price fields
+GET {{web_api_with_ef_core_odata_HostAddress}}/Products?$select=Name,Price
+Accept: application/json
+
+###
+
+// Paginate/Get top 2 products, skipping the first one
+GET {{web_api_with_ef_core_odata_HostAddress}}/Products?$top=2&$skip=1
+Accept: application/json
 
 ###
