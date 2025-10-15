@@ -19,7 +19,7 @@ public class ProductsController : ODataController
     [EnableQuery]
     public IActionResult Get()
     {
-        var products = context.Products.ToList();
+        var products = context.Products.Include(p => p.Category).ToList();
 
         return Ok(products);
     }
@@ -27,7 +27,7 @@ public class ProductsController : ODataController
     [EnableQuery]
     public IActionResult Get([FromRoute] int key)
     {
-        var product = context.Products.FirstOrDefault(p => p.Id == key);
+        var product = context.Products.Include(p => p.Category).FirstOrDefault(p => p.Id == key);
 
         if (product == null)
         {

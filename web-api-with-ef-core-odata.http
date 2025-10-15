@@ -1,10 +1,5 @@
 @web_api_with_ef_core_odata_HostAddress = http://localhost:5154/odata
 
-# GET {{web_api_with_ef_core_odata_HostAddress}}/weatherforecast/
-# Accept: application/json
-
-###
-
 // Get products list
 GET {{web_api_with_ef_core_odata_HostAddress}}/Products
 Accept: application/json
@@ -13,6 +8,18 @@ Accept: application/json
 
 // Get product by ID
 GET {{web_api_with_ef_core_odata_HostAddress}}/Products(1)
+Accept: application/json
+
+###
+
+// Get products with expanded category
+GET {{web_api_with_ef_core_odata_HostAddress}}/Products?$expand=Category
+Accept: application/json
+
+###
+
+// Get products filtered by category name 'Electronics' with expanded category
+GET {{web_api_with_ef_core_odata_HostAddress}}/Products?$filter=Category/Name%20eq%20'Electronics'&$expand=Category
 Accept: application/json
 
 ###
@@ -69,6 +76,70 @@ Accept: application/json
 
 // Paginate/Get top 2 products, skipping the first one
 GET {{web_api_with_ef_core_odata_HostAddress}}/Products?$top=2&$skip=1
+Accept: application/json
+
+###
+
+// Get categories list
+GET {{web_api_with_ef_core_odata_HostAddress}}/Categories
+Accept: application/json
+
+###
+
+// Get category by ID
+GET {{web_api_with_ef_core_odata_HostAddress}}/Categories(1)
+Accept: application/json
+
+###
+
+// Create a new category
+POST {{web_api_with_ef_core_odata_HostAddress}}/Categories
+Content-Type: application/json
+Accept: application/json
+
+{
+  "Name": "OData test category"
+}
+
+###
+
+// Update an existing category
+PUT {{web_api_with_ef_core_odata_HostAddress}}/Categories(1)
+Content-Type: application/json
+Accept: application/json
+
+{
+  "Id": 1,
+  "Name": "Modified product"
+}
+
+###
+
+// Delete a category
+DELETE {{web_api_with_ef_core_odata_HostAddress}}/Categories(4)
+
+###
+
+// Filter categories with name containing 'Electronics'
+GET {{web_api_with_ef_core_odata_HostAddress}}/Categories?$filter=Name%20contains%20'Electronics'
+Accept: application/json
+
+###
+
+// Order categories by name descending
+GET {{web_api_with_ef_core_odata_HostAddress}}/Categories?$orderby=Name%20desc
+Accept: application/json
+
+###
+
+// Select only Name fields
+GET {{web_api_with_ef_core_odata_HostAddress}}/Categories?$select=Name
+Accept: application/json
+
+###
+
+// Paginate/Get top 2 products, skipping the first one
+GET {{web_api_with_ef_core_odata_HostAddress}}/Categories?$top=1&$skip=1
 Accept: application/json
 
 ###

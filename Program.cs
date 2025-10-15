@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 // OData model
 var modelBuilder = new ODataConventionModelBuilder();
 modelBuilder.EntitySet<Product>("Products");
+modelBuilder.EntitySet<Category>("Categories");
 
 // Add services to the container.
 
