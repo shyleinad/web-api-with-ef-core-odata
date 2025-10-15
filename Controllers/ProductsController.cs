@@ -48,7 +48,7 @@ public class ProductsController : ODataController
 
     public IActionResult Put([FromRoute] int key, [FromBody] Product updateData) 
     {
-        var product = context.Products.FirstOrDefault(p => p.Id == updateData.Id);
+        var product = context.Products.FirstOrDefault(p => p.Id == key);
 
         if (product == null)
         {
