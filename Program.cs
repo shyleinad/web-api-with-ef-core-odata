@@ -1,11 +1,20 @@
+using Microsoft.AspNetCore.OData;
+using Microsoft.EntityFrameworkCore;
+using System;
+using web_api_with_ef_core_odata.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+// Add OData services
+builder.Services.AddControllers()
+    .AddOData(opt => opt.Select().Filter().OrderBy().SetMaxTop(100).Count().SkipToken().Expand());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+// Config db
+builder.Services.AddDbContext<ProductContext>(opt => opt.UseInMemoryDatabase("ProductsDb"));
 
 var app = builder.Build();
 
@@ -18,8 +27,18 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// Apply routing for OData
+app.UseRouting();
+
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Initialize the database with seed data
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ProductContext>();
+    db.Database.EnsureCreated();
+}
 
 app.Run();
