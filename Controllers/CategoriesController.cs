@@ -52,7 +52,7 @@ public class CategoriesController : ODataController
 
         var category = await service.UpdateAsync(key, updateData);
 
-        return category == null ? NotFound() : Updated(updateData);
+        return category == null ? NotFound() : Updated(category);
     }
 
     public async Task<IActionResult> Delete([FromRoute] int key)

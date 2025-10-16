@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OData.ModelBuilder;
-using System;
 using web_api_with_ef_core_odata.Data;
 using web_api_with_ef_core_odata.Models;
 using web_api_with_ef_core_odata.Services;

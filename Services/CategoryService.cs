@@ -17,13 +17,13 @@ public class CategoryService : ICategoryService
 
     public async Task<Category> CreateAsync(Category category)
     {
-        logger.LogInformation("Creating a new category: {@Product}...", category);
+        logger.LogInformation("Creating a new category: {@Category}...", category);
 
         context.Categories.Add(category);
 
         await context.SaveChangesAsync();
 
-        logger.LogInformation("Product created successfully with ID {Key}.", category.Id);
+        logger.LogInformation("Category created successfully with ID {Key}.", category.Id);
 
         return category;
     }
@@ -89,7 +89,7 @@ public class CategoryService : ICategoryService
 
         await context.SaveChangesAsync();
 
-        logger.LogInformation("Category with ID: {Key} updated successfully.", id);
+        logger.LogInformation("Category updated: {@UpdatedCategory}", category);
 
         return category;
     }

@@ -50,9 +50,9 @@ public class ProductsController : ODataController
             return BadRequest(ModelState);
         }
 
-        var category = await service.UpdateAsync(key, updateData);
+        var product = await service.UpdateAsync(key, updateData);
 
-        return category == null ? NotFound() : Updated(updateData);
+        return product == null ? NotFound() : Updated(product);
     }
 
     public async Task<IActionResult> Delete([FromRoute] int key)

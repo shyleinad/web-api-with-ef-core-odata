@@ -91,7 +91,7 @@ public class ProductService : IProductService
 
         await context.SaveChangesAsync();
 
-        logger.LogInformation("Product with ID: {Key} updated successfully.", id);
+        logger.LogInformation("Product updated: {@Product}", product);
 
         return product;
     }
