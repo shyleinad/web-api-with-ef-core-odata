@@ -31,6 +31,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 // Config db
 builder.Services.AddDbContext<ProjectDbContext>(opt => opt.UseInMemoryDatabase("ProductsDb"));
+// Logging
+builder.Services.AddLogging(cfg => cfg.AddConsole());
 
 var app = builder.Build();
 
