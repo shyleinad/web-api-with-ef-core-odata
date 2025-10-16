@@ -20,14 +20,14 @@ modelBuilder.EntitySet<Category>("Categories");
 // Add OData services
 builder.Services.AddControllers()
     .AddOData(opt => opt
-    .AddRouteComponents("odata", modelBuilder.GetEdmModel()).
-    Select().
-    Filter().
-    OrderBy().
-    SetMaxTop(100).
-    Count().
-    SkipToken().
-    Expand());
+    .AddRouteComponents("odata", modelBuilder.GetEdmModel())
+    .Select()
+    .Filter()
+    .OrderBy()
+    .SetMaxTop(100)
+    .Count()
+    .SkipToken()
+    .Expand());
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
