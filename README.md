@@ -24,19 +24,23 @@ or test OData endpoints directly under:
 ## Example OData Queries
 
 ### Products
-| Get all products: | /odata/Products |
-| Get product by ID: | odata/Products(1) |
-| Filter products with price greater than 100: | /odata/Products?$filter=Price gt 100 |
-| Order by product name: | /odata/Products?$orderby=Name |
-| Expand category details: | /odata/Products?$expand=Category |
-| Select only name and price: | /odata/Products?$select=Name,Price |
-| Combined example: | /odata/Products?$filter=Price gt 100&$orderby=Name&$expand=Category |
+| Description									| OData Query															|
+|-----------------------------------------------|-----------------------------------------------------------------------|
+| Get all products:								| /odata/Products														|
+| Get product by ID:							| odata/Products(1)														|
+| Filter products with price greater than 100:	| /odata/Products?$filter=Price gt 100									|
+| Order by product name:						| /odata/Products?$orderby=Name											|
+| Expand category details:						| /odata/Products?$expand=Category										|
+| Select only name and price:					| /odata/Products?$select=Name,Price									|
+| Combined example:								| /odata/Products?$filter=Price gt 100&$orderby=Name&$expand=Category	|
 
 ### Categories
-| Get all categories: | /odata/Categories |
-| Get category by ID: | /odata/Categories(1) |
-| Expand products for each category: | odata/Categories?$expand=Products |
-| Filter by name: | /odata/Categories?$filter=contains(Name,'Electronics') |
+| Description							| OData Query												|
+|---------------------------------------|-----------------------------------------------------------|
+| Get all categories:					| /odata/Categories											|
+| Get category by ID:					| /odata/Categories(1)										|
+| Expand products for each category:	| odata/Categories?$expand=Products							|
+| Filter by name:						| /odata/Categories?$filter=contains(Name,'Electronics')	|
 
 ## Design Decisions and Assumptions
 
