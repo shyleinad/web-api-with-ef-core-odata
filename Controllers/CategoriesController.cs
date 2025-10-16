@@ -50,6 +50,11 @@ public class CategoriesController : ODataController
 
     public IActionResult Post([FromBody] Category category)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
         logger.LogInformation("Creating a new category: {@Category}...", category);
 
         context.Categories.Add(category);
@@ -63,6 +68,11 @@ public class CategoriesController : ODataController
 
     public IActionResult Put([FromRoute] int key, [FromBody] Category updateData)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
         logger.LogInformation("Updating category with ID: {Key}...", key);
 
         var category = context.Categories.FirstOrDefault(p => p.Id == key);
@@ -85,6 +95,11 @@ public class CategoriesController : ODataController
 
     public IActionResult Delete([FromRoute] int key)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
         logger.LogInformation("Deleting category with ID: {Key}...", key);
 
         var category = context.Categories.FirstOrDefault(p => p.Id == key);

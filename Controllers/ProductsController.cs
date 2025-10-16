@@ -51,6 +51,11 @@ public class ProductsController : ODataController
 
     public IActionResult Post([FromBody] Product product)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
         logger.LogInformation("Creating a new product: {@Product}...", product);
 
         context.Products.Add(product);
@@ -64,6 +69,11 @@ public class ProductsController : ODataController
 
     public IActionResult Put([FromRoute] int key, [FromBody] Product updateData) 
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
         logger.LogInformation("Updating product with ID: {Key}...", key);
 
         var product = context.Products.FirstOrDefault(p => p.Id == key);
@@ -88,6 +98,11 @@ public class ProductsController : ODataController
 
     public IActionResult Delete([FromRoute] int key)
     {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
         logger.LogInformation("Deleting product with ID: {Key}...", key);
 
         var product = context.Products.FirstOrDefault(p => p.Id == key);
