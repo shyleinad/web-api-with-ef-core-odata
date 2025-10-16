@@ -110,7 +110,7 @@ Accept: application/json
 
 {
   "Id": 1,
-  "Name": "Modified product"
+  "Name": "Modified category"
 }
 
 ###
@@ -121,7 +121,7 @@ DELETE {{web_api_with_ef_core_odata_HostAddress}}/Categories(4)
 ###
 
 // Filter categories with name containing 'Electronics'
-GET {{web_api_with_ef_core_odata_HostAddress}}/Categories?$filter=Name%20contains%20'Electronics'
+GET {{web_api_with_ef_core_odata_HostAddress}}/Categories?$filter=contains(Name,'Electronics')
 Accept: application/json
 
 ###
