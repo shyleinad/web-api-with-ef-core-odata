@@ -19,11 +19,11 @@ public class ProductsController : ODataController
     }
 
     [EnableQuery]
-    public IActionResult Get()
+    public async Task<IActionResult> Get()
     {
         logger.LogInformation("Fetching all products...");
 
-        var products = context.Products.Include(p => p.Category).ToList();
+        var products = await context.Products.Include(p => p.Category).ToListAsync();
 
         logger.LogInformation("Fetched {Count} products.", products.Count);
 
@@ -31,17 +31,17 @@ public class ProductsController : ODataController
     }
 
     [EnableQuery]
-    public IActionResult Get([FromRoute] int key)
+    public async Task<IActionResult> Get([FromRoute] int key)
     {
         logger.LogInformation("Fetching product with ID: {Key}...", key);
 
-        var product = context.Products.Include(p => p.Category).FirstOrDefault(p => p.Id == key);
+        var product = await context.Products.Include(p => p.Category).FirstOrDefaultAsync(p => p.Id == key);
 
         if (product == null)
         {
             logger.LogWarning("Product with ID: {Key} not found.", key);
 
-            return new NotFoundResult();
+            return NotFound();
         }
 
         logger.LogInformation("Fetching product: {@Product}", product);
@@ -49,7 +49,7 @@ public class ProductsController : ODataController
         return Ok(product);
     }
 
-    public IActionResult Post([FromBody] Product product)
+    public async Task<IActionResult> Post([FromBody] Product product)
     {
         if (!ModelState.IsValid)
         {
@@ -60,14 +60,14 @@ public class ProductsController : ODataController
 
         context.Products.Add(product);
 
-        context.SaveChanges();
+        await context.SaveChangesAsync();
 
         logger.LogInformation("Product created successfully with ID {Key}.", product.Id);
 
         return Created(product);
     }
 
-    public IActionResult Put([FromRoute] int key, [FromBody] Product updateData) 
+    public async Task<IActionResult> Put([FromRoute] int key, [FromBody] Product updateData) 
     {
         if (!ModelState.IsValid)
         {
@@ -76,27 +76,27 @@ public class ProductsController : ODataController
 
         logger.LogInformation("Updating product with ID: {Key}...", key);
 
-        var product = context.Products.FirstOrDefault(p => p.Id == key);
+        var product = await context.Products.FirstOrDefaultAsync(p => p.Id == key);
 
         if (product == null)
         {
             logger.LogWarning("Product with ID: {Key} not found.", key);
 
-            return new NotFoundResult();
+            return NotFound();
         }
 
         product.Name = updateData.Name;
         product.CategoryId = updateData.CategoryId;
         product.Price = updateData.Price;
 
-        context.SaveChanges();
+        await context.SaveChangesAsync();
 
         logger.LogInformation("Product with ID: {Key} updated successfully.", key);
 
         return Updated(updateData);
     }
 
-    public IActionResult Delete([FromRoute] int key)
+    public async Task<IActionResult> Delete([FromRoute] int key)
     {
         if (!ModelState.IsValid)
         {
@@ -105,18 +105,18 @@ public class ProductsController : ODataController
 
         logger.LogInformation("Deleting product with ID: {Key}...", key);
 
-        var product = context.Products.FirstOrDefault(p => p.Id == key);
+        var product = await context.Products.FirstOrDefaultAsync(p => p.Id == key);
 
         if (product == null)
         {
             logger.LogWarning("Product with ID: {Key} not found.", key);
 
-            return new NotFoundResult();
+            return NotFound();
         }
 
         context.Products.Remove(product);
 
-        context.SaveChanges();
+        await context.SaveChangesAsync();
 
         logger.LogInformation("Product with ID: {Key} deleted successfully.", key);
 

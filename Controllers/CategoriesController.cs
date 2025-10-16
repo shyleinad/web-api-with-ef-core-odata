@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
+using Microsoft.EntityFrameworkCore;
 using web_api_with_ef_core_odata.Data;
 using web_api_with_ef_core_odata.Models;
 
@@ -18,11 +19,11 @@ public class CategoriesController : ODataController
     }
 
     [EnableQuery]
-    public IActionResult Get()
+    public async Task<IActionResult> Get()
     {
         logger.LogInformation("Fetching all categories...");
 
-        var categories = context.Categories.ToList();
+        var categories = await context.Categories.ToListAsync();
 
         logger.LogInformation("Fetched {Count} categories.", categories.Count);
 
@@ -30,17 +31,17 @@ public class CategoriesController : ODataController
     }
 
     [EnableQuery]
-    public IActionResult Get([FromRoute] int key)
+    public async Task<IActionResult> Get([FromRoute] int key)
     {
         logger.LogInformation("Fetching category with ID: {Key}...", key);
 
-        var category = context.Categories.FirstOrDefault(p => p.Id == key);
+        var category = await context.Categories.FirstOrDefaultAsync(p => p.Id == key);
 
         if (category == null)
         {
             logger.LogWarning("Category with ID: {Key} not found.", key);
 
-            return new NotFoundResult();
+            return NotFound();
         }
 
         logger.LogInformation("Fetched category: {@Category}", category);
@@ -48,7 +49,7 @@ public class CategoriesController : ODataController
         return Ok(category);
     }
 
-    public IActionResult Post([FromBody] Category category)
+    public async Task<IActionResult> Post([FromBody] Category category)
     {
         if (!ModelState.IsValid)
         {
@@ -59,14 +60,14 @@ public class CategoriesController : ODataController
 
         context.Categories.Add(category);
 
-        context.SaveChanges();
+        await context.SaveChangesAsync();
 
         logger.LogInformation("Category created successfully with ID {Key}.", category.Id);
 
         return Created(category);
     }
 
-    public IActionResult Put([FromRoute] int key, [FromBody] Category updateData)
+    public async Task<IActionResult> Put([FromRoute] int key, [FromBody] Category updateData)
     {
         if (!ModelState.IsValid)
         {
@@ -75,25 +76,25 @@ public class CategoriesController : ODataController
 
         logger.LogInformation("Updating category with ID: {Key}...", key);
 
-        var category = context.Categories.FirstOrDefault(p => p.Id == key);
+        var category = await context.Categories.FirstOrDefaultAsync(p => p.Id == key);
 
         if (category == null)
         {
             logger.LogWarning("Category with ID: {Key} not found.", key);
 
-            return new NotFoundResult();
+            return NotFound();
         }
 
         category.Name = updateData.Name;
 
-        context.SaveChanges();
+        await context.SaveChangesAsync();
 
         logger.LogInformation("Category with ID: {Key} updated successfully.", key);
 
         return Updated(updateData);
     }
 
-    public IActionResult Delete([FromRoute] int key)
+    public async Task<IActionResult> Delete([FromRoute] int key)
     {
         if (!ModelState.IsValid)
         {
@@ -102,18 +103,18 @@ public class CategoriesController : ODataController
 
         logger.LogInformation("Deleting category with ID: {Key}...", key);
 
-        var category = context.Categories.FirstOrDefault(p => p.Id == key);
+        var category = await context.Categories.FirstOrDefaultAsync(p => p.Id == key);
 
         if (category == null)
         {
             logger.LogWarning("Category with ID: {Key} not found.", key);
 
-            return new NotFoundResult();
+            return NotFound();
         }
 
         context.Categories.Remove(category);
 
-        context.SaveChanges();
+        await context.SaveChangesAsync();
 
         logger.LogInformation("Category with ID: {Key} deleted successfully.", key);
 
