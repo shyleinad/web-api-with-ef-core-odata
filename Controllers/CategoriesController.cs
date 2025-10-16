@@ -34,18 +34,18 @@ public class CategoriesController : ODataController
     {
         logger.LogInformation("Fetching category with ID: {Key}...", key);
 
-        var categories = context.Categories.FirstOrDefault(p => p.Id == key);
+        var category = context.Categories.FirstOrDefault(p => p.Id == key);
 
-        if (categories == null)
+        if (category == null)
         {
             logger.LogWarning("Category with ID: {Key} not found.", key);
 
             return new NotFoundResult();
         }
 
-        logger.LogInformation("Fetched category: {@Category}", categories);
+        logger.LogInformation("Fetched category: {@Category}", category);
 
-        return Ok(categories);
+        return Ok(category);
     }
 
     public IActionResult Post([FromBody] Category category)
