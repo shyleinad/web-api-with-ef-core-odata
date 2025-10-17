@@ -1,52 +1,213 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Moq;
+using web_api_with_ef_core_odata.Data;
+using web_api_with_ef_core_odata.Models;
+using web_api_with_ef_core_odata.Services;
+
 namespace web_api_with_ef_core_odata.Tests;
 
-public class CategoryServiceTests
+public class CategoryServiceTests : IDisposable
 {
-    [Fact]
-    public void CreateAsync_ShouldCreate()
+    private bool isDisposed;
+
+    private readonly ProjectDbContext context;
+
+    private readonly CategoryService service;
+
+    private readonly Mock<ILogger<CategoryService>> loggerMock;
+
+    public CategoryServiceTests()
     {
-        throw new NotImplementedException();
+        var options = new DbContextOptionsBuilder<ProjectDbContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        this.context = new ProjectDbContext(options);
+
+
+        this.loggerMock = new Mock<ILogger<CategoryService>>();
+
+        this.service = new CategoryService(this.context, this.loggerMock.Object);
     }
 
     [Fact]
-    public void DeleteAsync_IfFound_ShouldDeleteAndReturnTrue()
+    public async Task CreateAsync_ShouldCreate()
     {
-        throw new NotImplementedException();
+        // Arrange
+        var expected = new Category
+        {
+            Name = "Test category for adding",
+        };
+
+        // Act
+        var actual = await service.CreateAsync(expected);
+
+        // Assert
+        Assert.True(actual.Id > 0);
+        Assert.Equal(expected.Name, actual.Name);
     }
 
     [Fact]
-    public void DeleteAsync_IfNotFound_ShouldReturnFalse()
+    public async Task DeleteAsync_WhenFound_ShouldDeleteAndReturnTrue()
     {
-        throw new NotImplementedException();
+        // Arrange
+        var category = new Category
+        {
+            Name = "Test category for deleting",
+        };
+
+        context.Categories.Add(category);
+
+        await context.SaveChangesAsync();
+
+        var expected = true;
+
+        // Act
+        var actual = await service.DeleteAsync(category.Id);
+
+        // Assert
+        Assert.Equal(expected, actual);
+        Assert.Null(await context.Categories.FindAsync(category.Id));
     }
 
     [Fact]
-    public void GetAllAsync_ShouldGetAll()
+    public async Task DeleteAsync_WhenNotFound_ShouldReturnFalse()
     {
-        throw new NotImplementedException();
+        // Arrange
+        var expected = false;
+
+        // Act
+        var actual = await service.DeleteAsync(-1);
+
+        // Assert
+        Assert.Equal(expected, actual);
     }
 
     [Fact]
-    public void GetByIdAsync_WhenExists_ShouldReturnCategory()
+    public async Task GetAllAsync_ShouldGetAll()
     {
-        throw new NotImplementedException();
+        // Arrange
+        Category[] categories = new Category[]
+        {
+            new Category
+            {
+                Name = "Existing category 1",
+            },
+            new Category
+            {
+                Name = "Existing category 2",
+            }
+        };
+
+        context.Categories.AddRange(categories);
+
+        await context.SaveChangesAsync();
+
+        var expected = categories.Length;
+
+        // Act
+        var result = await service.GetAllAsync();
+
+        var actual = result.Count();
+
+        // Assert
+        Assert.Equal(expected, actual);
     }
 
     [Fact]
-    public void GetByIdAsync_WhenNotExists_ShouldReturnNull()
+    public async Task GetByIdAsync_WhenExists_ShouldReturnCategory()
     {
-        throw new NotImplementedException();
+        // Arrange
+        var expected = new Category
+        {
+            Name = "Test category for getting category by id",
+        };
+
+        context.Categories.Add(expected);
+
+        await context.SaveChangesAsync();
+
+        // Act
+        var actual = await service.GetByIdAsync(expected.Id);
+
+        // Assert
+        Assert.NotNull(actual);
+        Assert.True(actual.Id > 0);
+        Assert.Equal(expected.Name, actual.Name);
     }
 
     [Fact]
-    public void UpdateAsync_WhenExists_ShouldUpdateAndReturnCategory()
+    public async Task GetByIdAsync_WhenNotExists_ShouldReturnNull()
     {
-        throw new NotImplementedException();
+        // Arrange
+
+        // Act
+        var result = await service.GetByIdAsync(-1);
+
+        // Assert
+        Assert.Null(result);
     }
 
     [Fact]
-    public void UpdateAsync_WhenNotExists_ShouldReturnNull()
+    public async Task UpdateAsync_WhenExists_ShouldUpdateAndReturnCategory()
     {
-        throw new NotImplementedException();
+        // Arrange
+        var category = new Category
+        {
+            Name = "Test category for updating",
+        };
+
+        context.Categories.Add(category);
+
+        await context.SaveChangesAsync();
+
+        var expected = new Category
+        {
+            Name = "Test category updated",
+        };
+
+        // Act
+        var actual = await service.UpdateAsync(category.Id, expected);
+
+        // Assert
+        Assert.NotNull(actual);
+        Assert.True(actual.Id > 0);
+        Assert.Equal(expected.Name, actual.Name);
+    }
+
+    [Fact]
+    public async Task UpdateAsync_WhenNotExists_ShouldReturnNull()
+    {
+        // Arrange
+        var category = new Category
+        {
+            Name = "Test category for updating",
+        };
+
+        // Act
+        var result = await service.UpdateAsync(-1, category);
+
+        // Assert
+        Assert.Null(result);
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!this.isDisposed)
+        {
+            this.isDisposed = true;
+
+            if (disposing)
+            {
+                context.Dispose();
+            }
+        }
     }
 }
