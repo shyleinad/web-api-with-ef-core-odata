@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36429.23 d17.14
+VisualStudioVersion = 17.14.36429.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web-api-with-ef-core-odata", "web-api-with-ef-core-odata.csproj", "{819B58AD-C15E-43BC-AF49-EE1C41D3BB9D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web-api-with-ef-core-odata", "web-api-with-ef-core-odata\web-api-with-ef-core-odata.csproj", "{03C8BA08-2C20-7397-3CEA-D4CB8CF2FB92}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{819B58AD-C15E-43BC-AF49-EE1C41D3BB9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{819B58AD-C15E-43BC-AF49-EE1C41D3BB9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{819B58AD-C15E-43BC-AF49-EE1C41D3BB9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{819B58AD-C15E-43BC-AF49-EE1C41D3BB9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03C8BA08-2C20-7397-3CEA-D4CB8CF2FB92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03C8BA08-2C20-7397-3CEA-D4CB8CF2FB92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03C8BA08-2C20-7397-3CEA-D4CB8CF2FB92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03C8BA08-2C20-7397-3CEA-D4CB8CF2FB92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
