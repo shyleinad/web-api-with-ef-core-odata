@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36429.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web-api-with-ef-core-odata", "web-api-with-ef-core-odata\web-api-with-ef-core-odata.csproj", "{03C8BA08-2C20-7397-3CEA-D4CB8CF2FB92}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "web-api-with-ef-core-odata.Tests", "web-api-with-ef-core-odata.Tests\web-api-with-ef-core-odata.Tests.csproj", "{308EEEBB-657E-4353-99AB-6E2CA1ECB67B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{03C8BA08-2C20-7397-3CEA-D4CB8CF2FB92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03C8BA08-2C20-7397-3CEA-D4CB8CF2FB92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03C8BA08-2C20-7397-3CEA-D4CB8CF2FB92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{308EEEBB-657E-4353-99AB-6E2CA1ECB67B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{308EEEBB-657E-4353-99AB-6E2CA1ECB67B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{308EEEBB-657E-4353-99AB-6E2CA1ECB67B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{308EEEBB-657E-4353-99AB-6E2CA1ECB67B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
